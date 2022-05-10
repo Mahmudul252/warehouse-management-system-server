@@ -28,7 +28,27 @@ async function run() {
             const query = { _id: ObjectId(id) };
             const result = await serviceCollection.findOne(query);
             res.send(result);
-        })
+        });
+
+        app.put('/services/:id', async (req, res) => {
+            const id = req.params.id;
+            const updatedItem = req.body;
+            const filter = { _id: ObjectId(id) };
+            const options = { upsert: true };
+            const updatedDoc = {
+                $set: {
+                    itemName: updatedItem.itemName,
+                    img: updatedItem.img,
+                    description: updatedItem.description,
+                    price: updatedItem.price,
+                    quantity: updatedItem.quantity,
+                    supplier: updatedItem.supplier
+                }
+            };
+            const result = await serviceCollection.updateOne(filter, updatedDoc, options);
+            res.send(result);
+
+        });
     }
     finally {
 

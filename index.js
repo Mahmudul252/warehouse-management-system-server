@@ -27,6 +27,7 @@ async function run() {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
             const result = await serviceCollection.findOne(query);
+            console.log(result)
             res.send(result);
         });
 
@@ -55,6 +56,12 @@ async function run() {
             const query = { _id: ObjectId(id) };
             const result = await serviceCollection.deleteOne(query);
             res.send(result);
+        });
+
+        app.post('/services', async (req, res) => {
+            const newItem = req.body;
+            const result = await userCollection.insertOne(newItem);
+            res.send(result)
         });
     }
     finally {

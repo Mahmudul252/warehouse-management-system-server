@@ -60,7 +60,7 @@ async function run() {
 
         app.post('/services', async (req, res) => {
             const newItem = req.body;
-            const result = await userCollection.insertOne(newItem);
+            const result = await serviceCollection.insertOne(newItem);
             res.send(result)
         });
     }
